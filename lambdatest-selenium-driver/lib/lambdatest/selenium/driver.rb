@@ -17,7 +17,7 @@ module Lambdatest
           end
 
           if !Lambdatest::Sdk::Utils.is_smartui_enabled?
-            raise StandardError, "SmartUI Server is not enabled."
+            raise StandardError, "Cannot find SmartUI server."
           end
 
           response = JSON.parse(Lambdatest::Sdk::Utils.fetch_dom_serializer)

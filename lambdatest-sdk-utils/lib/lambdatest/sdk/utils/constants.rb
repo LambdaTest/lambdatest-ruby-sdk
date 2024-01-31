@@ -7,7 +7,10 @@ module Lambdatest
         end
   
         def self.get_smart_ui_server_address
-          ENV.fetch('SMARTUI_SERVER_ADDRESS', 'http://localhost:8080')
+          unless ENV.fetch('SMARTUI_SERVER_ADDRESS')
+            raise 'SmartUI server address not found'
+          end
+          ENV.fetch('SMARTUI_SERVER_ADDRESS')
         end
       end
     end
