@@ -24,10 +24,10 @@ module Lambdatest
         end
       end
         
-      def self.get_logger
+      def self.get_logger(pkgName)
         logger = Logger.new(STDOUT)
         logger.level = log_level
-        logger.progname = get_pkg_name
+        logger.progname = pkgName
         logger
       end
     end
