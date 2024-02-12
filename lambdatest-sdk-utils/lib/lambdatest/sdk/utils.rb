@@ -10,8 +10,7 @@ require_relative "utils/logger.rb"
 module Lambdatest
   module Sdk
     module Utils
-      SMART_UI_API = get_smart_ui_server_address
-      @logger = Lambdatest::Sdk::Utils.get_logger
+      @logger = Lambdatest::Sdk::Utils.get_logger(get_pkg_name)
 
       def self.is_smartui_enabled?
         begin
@@ -27,20 +26,20 @@ module Lambdatest
         make_api_call('/domserializer', method: :get,data: nil)
       end
 
-      def self.post_snapshot(snapshot,options={})
-        uri = URI("#{SMART_UI_API}/snapshot")
+      def self.post_snapshot(snapshot,pkg_name,options={})
+        uri = URI("#{get_smart_ui_server_address}/snapshot")
         data = JSON.generate({
           snapshot: {
             **snapshot,
             options: options
           },
-          testType: get_pkg_name
+          testType: pkg_name
         })
         make_api_call('/snapshot', method: :post, data: data)
       end
 
       def self.make_api_call(endpoint, method: :get, data: nil)
-        uri = URI("#{SMART_UI_API}#{endpoint}")
+        uri = URI("#{get_smart_ui_server_address}#{endpoint}")
 
         response = case method
                    when :get
