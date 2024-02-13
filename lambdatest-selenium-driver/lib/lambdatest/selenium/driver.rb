@@ -32,7 +32,7 @@ module Lambdatest
 
           # Post the dom to smartui endpoint
           snapshot['name'] = snapshot_name
-          snapshot_reponse = Lambdatest::Sdk::Utils.post_snapshot(snapshot,pkg_name,options)
+          snapshot_reponse = Lambdatest::Sdk::Utils.post_snapshot(snapshot,@pkg_name,options)
 
           res = JSON.parse(snapshot_reponse)
           if res && res['data'] && res['data']['warnings'] && res['data']['warnings'].length != 0
