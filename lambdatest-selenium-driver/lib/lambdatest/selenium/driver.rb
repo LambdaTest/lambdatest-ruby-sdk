@@ -5,7 +5,7 @@ module Lambdatest
   module Selenium
     module Driver
       @pkg_name = "ruby-selenium-driver"
-      @logger = Lambdatest::Sdk::Utils.get_logger(pkg_name)
+      @logger = Lambdatest::Sdk::Utils.get_logger(@pkg_name)
       
       def self.smartui_snapshot(driver , snapshot_name, options = {})
         if snapshot_name.nil? || snapshot_name.empty?
