@@ -5,7 +5,7 @@ module Lambdatest
   module Selenium
     module Driver
       @pkg_name = "ruby-selenium-driver"
-      @logger = Lambdatest::Sdk::Utils.get_logger(pkg_name)
+      @logger = Lambdatest::Sdk::Utils.get_logger(@pkg_name)
       
       def self.smartui_snapshot(driver , snapshot_name, options = {})
         if snapshot_name.nil? || snapshot_name.empty?
@@ -24,6 +24,12 @@ module Lambdatest
           response = JSON.parse(Lambdatest::Sdk::Utils.fetch_dom_serializer)
           driver.execute_script(response["data"]["dom"])
 
+          # Get the sessionId from the driver
+          session_id = driver.session_id
+          if session_id
+            options['sessionId'] = session_id # Append sessionId to options
+          end
+
           # Serialize and capture the DOM
           snapshot = driver.execute_script("return {
              'dom' : SmartUIDOM.serialize(#{options.to_json}),
@@ -32,7 +38,7 @@ module Lambdatest
 
           # Post the dom to smartui endpoint
           snapshot['name'] = snapshot_name
-          snapshot_reponse = Lambdatest::Sdk::Utils.post_snapshot(snapshot,pkg_name,options)
+          snapshot_reponse = Lambdatest::Sdk::Utils.post_snapshot(snapshot,@pkg_name,options)
 
           res = JSON.parse(snapshot_reponse)
           if res && res['data'] && res['data']['warnings'] && res['data']['warnings'].length != 0
