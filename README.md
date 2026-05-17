@@ -17,9 +17,9 @@ With TestMu AI (Formerly LambdaTest), you can run Ruby SDK tests across real bro
 
 ### Prerequisites
 
-- [Ruby](https://www.ruby-lang.org/en/downloads/) (2.7 or higher).
-- [Bundler](https://bundler.io/) gem installed.
-- A [TestMu AI account](https://www.testmuai.com/register/). Retrieve your **Username** and **Access Key** from the [TestMu AI Automation Dashboard](https://automation.testmuai.com/).
+- Ruby (2.7 or higher).
+- Bundler gem installed.
+- A TestMu AI account. Retrieve your **Username** and **Access Key** from the TestMu AI Automation Dashboard.
 
 ### Setup
 
