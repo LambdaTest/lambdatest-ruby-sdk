@@ -2,15 +2,22 @@
 
 require_relative "lib/lambdatest/sdk/utils/version"
 
+# Brand switch: by default this builds lambdatest-sdk-utils exactly as before.
+# Build with BRAND=testmuai to produce the same gem as testmuai-sdk-utils.
+# Only the gem name and listing metadata change; the code and require paths stay the same.
+brand = ENV.fetch("BRAND", "lambdatest").downcase
+raise ArgumentError, "Unknown BRAND '#{brand}'. Use lambdatest (default) or testmuai." unless %w[lambdatest testmuai].include?(brand)
+testmuai = brand == "testmuai"
+
 Gem::Specification.new do |spec|
-  spec.name = "lambdatest-sdk-utils"
+  spec.name = testmuai ? "testmuai-sdk-utils" : "lambdatest-sdk-utils"
   spec.version = Lambdatest::Sdk::Utils::VERSION
-  spec.authors = ["LambdaTest"]
+  spec.authors = testmuai ? ["TestMu AI"] : ["LambdaTest"]
   spec.email = ["keys@lambdatest.com"]
 
-  spec.summary = "Ruby Selenium SDK for testing with Smart UI"
-  spec.description = "Ruby Selenium SDK for testing with Smart UI"
-  spec.homepage = "https://www.lambdatest.com"
+  spec.summary = testmuai ? "TestMu AI (formerly LambdaTest) SmartUI SDK utilities for Ruby" : "Ruby Selenium SDK for testing with Smart UI"
+  spec.description = testmuai ? "TestMu AI (formerly LambdaTest) SmartUI SDK utilities for Ruby. Same SDK as lambdatest-sdk-utils." : "Ruby Selenium SDK for testing with Smart UI"
+  spec.homepage = testmuai ? "https://www.testmuai.com" : "https://www.lambdatest.com"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
