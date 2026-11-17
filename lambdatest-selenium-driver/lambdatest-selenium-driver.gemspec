@@ -2,15 +2,22 @@
 
 require_relative "lib/lambdatest/selenium/driver/version"
 
+# Brand switch: by default this builds lambdatest-selenium-driver exactly as before.
+# Build with BRAND=testmuai to produce the same gem as testmuai-selenium-driver.
+# Only the gem name and listing metadata change; the code and require paths stay the same.
+brand = ENV.fetch("BRAND", "lambdatest").downcase
+raise ArgumentError, "Unknown BRAND '#{brand}'. Use lambdatest (default) or testmuai." unless %w[lambdatest testmuai].include?(brand)
+testmuai = brand == "testmuai"
+
 Gem::Specification.new do |spec|
-  spec.name = "lambdatest-selenium-driver"
+  spec.name = testmuai ? "testmuai-selenium-driver" : "lambdatest-selenium-driver"
   spec.version = Lambdatest::Selenium::Driver::VERSION
-  spec.authors = ["LambdaTest"]
+  spec.authors = testmuai ? ["TestMu AI"] : ["LambdaTest"]
   spec.email = ["key@lambdatest.com"]
 
-  spec.summary = "Ruby Selenium Driver"
-  spec.description = "Ruby Selenium SDK for testing with Smart UI"
-  spec.homepage = "https://www.lambdatest.com"
+  spec.summary = testmuai ? "TestMu AI (formerly LambdaTest) SmartUI Selenium driver for Ruby" : "Ruby Selenium Driver"
+  spec.description = testmuai ? "TestMu AI (formerly LambdaTest) SmartUI Selenium driver for Ruby. Same SDK as lambdatest-selenium-driver." : "Ruby Selenium SDK for testing with Smart UI"
+  spec.homepage = testmuai ? "https://www.testmuai.com" : "https://www.lambdatest.com"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
@@ -32,7 +39,7 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
-  spec.add_dependency 'lambdatest-sdk-utils', '>= 1.0.2'
+  spec.add_dependency testmuai ? 'testmuai-sdk-utils' : 'lambdatest-sdk-utils', '>= 1.0.2'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
