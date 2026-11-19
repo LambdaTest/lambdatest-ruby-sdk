@@ -32,7 +32,8 @@ module Lambdatest
 
           # the session id links the snapshot to its LambdaTest test, as the other selenium drivers do
           session_id = driver.session_id rescue nil
-          options = options.merge('sessionId' => session_id) if session_id && !options.key?('sessionId') && !options.key?(:sessionId)
+          base = options || {}
+          options = base.merge('sessionId' => session_id) if session_id && !base.key?('sessionId') && !base.key?(:sessionId)
 
           # Post the dom to smartui endpoint
           snapshot['name'] = snapshot_name
