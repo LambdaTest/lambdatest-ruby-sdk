@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Ruby Selenium Driver"
   spec.description = "Ruby Selenium SDK for testing with Smart UI"
-  spec.homepage = "https://www.lambdatest.com"
+  spec.homepage = "https://www.testmuai.com"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
